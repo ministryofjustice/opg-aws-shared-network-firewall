@@ -1,16 +1,16 @@
 locals {
-  environment = lower(terraform.workspace)
-
   mandatory_moj_tags = {
+    application      = "opg-shared-network-firewall"
     business-unit    = "OPG"
-    application      = "github-template-repository"
-    environment-name = local.environment
+    environment-name = terraform.workspace
+    is-production    = terraform.workspace == "production" ? true : false
     owner            = "WebOps: opg-webops-community@digital.justice.gov.uk"
-    is-production    = false
   }
 
   optional_tags = {
     infrastructure-support = "OPG Webops: opg-webops-community@digital.justice.gov.uk"
+    source-code            = "https://github.com/ministryofjustice/opg-aws-terraform-shared-network-firewall"
+    terraform-managed      = "Managed by Terraform"
   }
 
   default_tags = merge(local.mandatory_moj_tags, local.optional_tags)

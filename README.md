@@ -3,7 +3,7 @@ Service for a Centralised Shared Network Firewall: Managed by opg-org-infra &amp
 
 
 # Adding your Service
-Add the accounts that you'd like to use the shared firewall in by adding the account ID to the list for the relevant shared account  in `terraform/account/terraform.tfvars.json`.
+Add the accounts that you'd like to use the shared firewall in by adding the account ID & VPC CIDR Range to the lists for the relevant shared account  in `terraform/account/terraform.tfvars.json`.
 
 Ensure the rule files are updated with any requirements for access to external services, there are two files, one for Development & one for Production, they are found in the locations below.
 

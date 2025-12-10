@@ -25,7 +25,7 @@ defaults:
     working-directory: terraform/account
 
 env:
-  TERRAFORM_VERSION: 1.14.1
+  TFLINT_VERSION: 0.50.1
 
 jobs:
   lint-and-validate:
@@ -34,9 +34,27 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: hashicorp/setup-terraform@v1
+      - name: Parse terraform version
+        id: tf_version_setup
+        run: |
+          if [ -f ./versions.tf ]; then
+            terraform_version=$(cat ./versions.tf | sed -r -n 's/.*required_version.*"(.*)"$/\1/p' <&0)
+            echo "- Terraform version: [${terraform_version}]" >> $GITHUB_STEP_SUMMARY
+            echo "TERRAFORM_VERSION=${terraform_version}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: "Terraform version [${{ steps.tf_version_setup.outputs.TERRAFORM_VERSION }}]"
+        run: echo "terraform version [${{ steps.tf_version_setup.outputs.TERRAFORM_VERSION }}]"
+
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2
         with:
-          terraform_version: ${{ env.TERRAFORM_VERSION }}
+          terraform_version: ${{ steps.tf_version_setup.outputs.TERRAFORM_VERSION }}
+          terraform_wrapper: false
+
+      - uses: terraform-linters/setup-tflint@ae78205cfffec9e8d93fd2b3115c7e9d3166d4b6 # v5
+        name: Setup TFLint
+        with:
+          tflint_version: v${{ env.TFLINT_VERSION }}
 
       - name: Configure OIDC AWS credentials for Terraform
         uses: aws-actions/configure-aws-credentials@a03048d87541d1d9fcf2ecf528a4a65ba9bd7838 # v5.0.0
@@ -46,8 +64,8 @@ jobs:
           role-duration-seconds: 900
           aws-region: eu-west-1
 
-      - name: Lint Terraform
-        id: tf_lint
+      - name: Format Check Terraform
+        id: tf_fmt
         run: terraform fmt -check -recursive
 
       - name: Validate Terraform
@@ -55,6 +73,10 @@ jobs:
         run: |
           terraform init
           terraform validate
+
+      - name: Lint Terraform
+        id: tf_lint
+        run: tflint --recursive
 
   plan-and-apply:
     name: Plan & Apply ${{ matrix.environment }}
@@ -75,9 +97,21 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: hashicorp/setup-terraform@v1
+      - name: Parse terraform version
+        id: tf_version_setup
+        run: |
+          if [ -f ./versions.tf ]; then
+            terraform_version=$(cat ./versions.tf | sed -r -n 's/.*required_version.*"(.*)"$/\1/p' <&0)
+            echo "- Terraform version: [${terraform_version}]" >> $GITHUB_STEP_SUMMARY
+            echo "TERRAFORM_VERSION=${terraform_version}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: "Terraform version [${{ steps.tf_version_setup.outputs.TERRAFORM_VERSION }}]"
+        run: echo "terraform version [${{ steps.tf_version_setup.outputs.TERRAFORM_VERSION }}]"
+
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2
         with:
-          terraform_version: ${{ env.TERRAFORM_VERSION }}
+          terraform_version: ${{ steps.tf_version_setup.outputs.TERRAFORM_VERSION }}
           terraform_wrapper: false
 
       - uses: unfor19/install-aws-cli-action@v1

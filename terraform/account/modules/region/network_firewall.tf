@@ -13,6 +13,14 @@ resource "aws_networkfirewall_firewall_policy" "main" {
   name = "main"
 
   firewall_policy {
+    policy_variables {
+      rule_variables {
+        key = "HOME_NET"
+        ip_set {
+          definition = var.account.account_cidr_ranges
+        }
+      }
+    }
     stateless_default_actions          = ["aws:forward_to_sfe"]
     stateless_fragment_default_actions = ["aws:forward_to_sfe"]
 

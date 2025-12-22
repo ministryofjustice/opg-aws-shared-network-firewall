@@ -64,9 +64,25 @@ resource "aws_cloudwatch_query_definition" "network_firewall_logs" {
   ]
 
   query_string = <<EOF
-fields @timestamp, event.alert.action, event.tls.sni, event.event_type, event.alert.signature, availability_zone, event.proto, @message
-| sort @timestamp desc
-| limit 10000
+FIELDS @timestamp AS Time, event.event_type AS Event, event.alert.action AS Action, coalesce(event.http.hostname,event.tls.sni) AS Domain, event.alert.signature AS Message, availability_zone AS AvailabiltyZone, event.proto AS Protocol
+| FILTER ispresent(event.alert.action)
+| SORT @timestamp DESC
+| LIMIT 1000
+EOF
+  region       = var.region
+}
+
+resource "aws_cloudwatch_query_definition" "network_firewall_logs_aggregated" {
+  name = "Network Firewall Queries/Network Firewall Logs Aggregated"
+  log_group_names = [
+    aws_cloudwatch_log_group.network_firewall.name
+  ]
+
+  query_string = <<EOF
+FIELDS event.event_type AS Event, event.alert.action AS Action, coalesce(event.http.hostname,event.tls.sni) AS Domain, event.alert.signature AS Message, availability_zone AS AvailabiltyZone, event.proto AS Protocol
+| FILTER ispresent(event.alert.action)
+| STATS COUNT(*) AS NumberOfRequests by Event, Action, Domain, Message, AvailabiltyZone, Protocol
+| SORT NumberOfRequests DESC
 EOF
   region       = var.region
 }

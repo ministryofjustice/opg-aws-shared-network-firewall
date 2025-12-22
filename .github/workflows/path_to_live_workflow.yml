@@ -90,9 +90,9 @@ jobs:
             workspace_environment: "development"
             role: "oidc-opg-shared-network-firewall-shared-development"
 
-          # - environment: "Production"
-          #   workspace_environment: "production"
-          #   role: "oidc-opg-shared-network-firewall-shared-production"
+          - environment: "Production"
+            workspace_environment: "production"
+            role: "oidc-opg-shared-network-firewall-shared-production"
 
     steps:
       - uses: actions/checkout@v2

@@ -34,18 +34,3 @@ resource "aws_networkfirewall_firewall_policy" "main" {
   }
   region = var.region
 }
-
-locals {
-  firewall_rules_file = "${path.module}/network_firewall_rules.rules.${var.account.account_name}"
-}
-
-resource "aws_networkfirewall_rule_group" "rule_file" {
-  capacity = 100
-  name     = "main-${replace(filebase64sha256(local.firewall_rules_file), "/[^[:alnum:]]/", "")}"
-  type     = "STATEFUL"
-  rules    = file(local.firewall_rules_file)
-  lifecycle {
-    create_before_destroy = true
-  }
-  region = var.region
-}

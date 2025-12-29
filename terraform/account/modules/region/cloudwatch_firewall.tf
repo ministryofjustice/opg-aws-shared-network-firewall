@@ -29,7 +29,7 @@ resource "aws_cloudwatch_log_resource_policy" "network_firewall_log_publishing" 
 }
 
 resource "aws_networkfirewall_logging_configuration" "main" {
-  count        = 3
+  count        = local.availability_zones_count
   firewall_arn = aws_networkfirewall_firewall.main[count.index].arn
   logging_configuration {
     log_destination_config {

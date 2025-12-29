@@ -2,7 +2,7 @@ resource "aws_subnet" "firewall" {
   for_each                        = local.availability_zones_set
   assign_ipv6_address_on_creation = false
   availability_zone_id            = each.key
-  cidr_block                      = cidrsubnet(aws_vpc.main.cidr_block, 7, index(data.aws_availability_zones.all.zone_ids, each.key) + 45)
+  cidr_block                      = cidrsubnet(aws_vpc.main.cidr_block, 7, index(sort(data.aws_availability_zones.all.zone_ids), each.key) + 45)
   map_public_ip_on_launch         = false
   vpc_id                          = aws_vpc.main.id
   tags                            = { Name = "firewall-${each.key}" }

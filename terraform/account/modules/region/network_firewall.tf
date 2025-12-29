@@ -17,7 +17,7 @@ resource "aws_networkfirewall_firewall_policy" "main" {
       rule_variables {
         key = "HOME_NET"
         ip_set {
-          definition = var.account.account_cidr_ranges
+          definition = var.account.remote_account_cidr_ranges
         }
       }
     }

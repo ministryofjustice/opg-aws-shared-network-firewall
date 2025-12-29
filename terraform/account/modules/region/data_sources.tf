@@ -8,3 +8,7 @@ data "aws_availability_zones" "all" {
   state  = "available"
   region = var.region
 }
+
+locals {
+  availability_zones_set = toset(data.aws_availability_zones.all.zone_ids)
+}

@@ -8,8 +8,8 @@ resource "aws_ram_resource_share" "firewall" {
 }
 
 resource "aws_ram_resource_association" "firewall" {
-  count              = local.availability_zones_count
-  resource_arn       = aws_networkfirewall_firewall.main[count.index].arn
+  for_each           = local.availability_zones_set
+  resource_arn       = aws_networkfirewall_firewall.main[each.key].arn
   resource_share_arn = aws_ram_resource_share.firewall.arn
   region             = var.region
 }

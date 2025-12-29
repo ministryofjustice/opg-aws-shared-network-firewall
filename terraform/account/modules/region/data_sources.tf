@@ -10,6 +10,5 @@ data "aws_availability_zones" "all" {
 }
 
 locals {
-  availability_zones_count  = length(local.sorted_availability_zones)
-  sorted_availability_zones = sort(data.aws_availability_zones.all.zone_ids)
+  availability_zones_set = toset(data.aws_availability_zones.all.zone_ids)
 }

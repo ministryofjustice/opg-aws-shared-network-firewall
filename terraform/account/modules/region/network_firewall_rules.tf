@@ -6,6 +6,7 @@ locals {
     "api.os.uk",
     "api.yoti.com",
     "database.clamav.net",
+    "ddtest.allpay.net",
     "demo.lpa-uid.api.opg.service.justice.gov.uk",
     "development.api.metrics.opg.service.justice.gov.uk",
     "development.lpa-uid.api.opg.service.justice.gov.uk",

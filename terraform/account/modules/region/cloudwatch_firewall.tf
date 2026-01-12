@@ -64,7 +64,7 @@ resource "aws_cloudwatch_query_definition" "network_firewall_logs" {
   ]
 
   query_string = <<EOF
-FIELDS @timestamp AS Time, event.event_type AS Event, event.alert.action AS Action, coalesce(event.http.hostname,event.tls.sni) AS Domain, event.alert.signature AS Message, availability_zone AS AvailabiltyZone, event.proto AS Protocol
+FIELDS @timestamp AS Time, event.event_type AS Event, event.alert.action AS Action, coalesce(event.http.hostname,event.tls.sni,event.dest_ip) AS Domain, event.alert.signature AS Message, availability_zone AS AvailabiltyZone, event.proto AS Protocol
 | FILTER ispresent(event.alert.action)
 | SORT @timestamp DESC
 | LIMIT 1000
@@ -79,7 +79,7 @@ resource "aws_cloudwatch_query_definition" "network_firewall_logs_aggregated" {
   ]
 
   query_string = <<EOF
-FIELDS event.event_type AS Event, event.alert.action AS Action, coalesce(event.http.hostname,event.tls.sni) AS Domain, event.alert.signature AS Message, availability_zone AS AvailabiltyZone, event.proto AS Protocol
+FIELDS event.event_type AS Event, event.alert.action AS Action, coalesce(event.http.hostname,event.tls.sni,event.dest_ip) AS Domain, event.alert.signature AS Message, availability_zone AS AvailabiltyZone, event.proto AS Protocol
 | FILTER ispresent(event.alert.action)
 | STATS COUNT(*) AS NumberOfRequests by Event, Action, Domain, Message, AvailabiltyZone, Protocol
 | SORT NumberOfRequests DESC

@@ -1,6 +1,7 @@
 resource "aws_networkfirewall_firewall" "main" {
   for_each            = local.availability_zones_set
   name                = "shared-network-firewall-${var.account.account_name}-${each.key}"
+  delete_protection   = true
   firewall_policy_arn = aws_networkfirewall_firewall_policy.main.arn
   vpc_id              = aws_vpc.main.id
   subnet_mapping {

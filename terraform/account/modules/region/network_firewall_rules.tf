@@ -1,5 +1,3 @@
-
-
 locals {
   allowed_domains = [
     "api.notifications.service.gov.uk",
@@ -17,6 +15,7 @@ locals {
     "publicapi.payments.service.gov.uk",
     "rds.eu-west-2.amazonaws.com",
     "www.gov.uk",
+    "www.ncsc.gov.uk"
   ]
   allowed_prefixed_domains = [
     ".api.opg.service.justice.gov.uk",
@@ -26,6 +25,8 @@ locals {
     ".lpa-uid.api.opg.service.justice.gov.uk",
     ".sirius.opg.service.justice.gov.uk",
     ".uk.experian.com",
+    ".digideps.opg.service.justice.gov.uk",
+    ".admin.digideps.opg.service.justice.gov.uk"
   ]
 }
 

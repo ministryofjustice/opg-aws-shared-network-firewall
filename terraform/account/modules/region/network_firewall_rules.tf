@@ -8,6 +8,7 @@ locals {
     "demo.lpa-uid.api.opg.service.justice.gov.uk",
     "development.api.metrics.opg.service.justice.gov.uk",
     "development.lpa-uid.api.opg.service.justice.gov.uk",
+    "hooks.slack.com",
     "identity.integration.account.gov.uk",
     "lambda.eu-west-2.amazonaws.com",
     "login.microsoftonline.com",

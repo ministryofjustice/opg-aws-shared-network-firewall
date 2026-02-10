@@ -12,6 +12,7 @@ locals {
     "identity.integration.account.gov.uk",
     "lambda.eu-west-2.amazonaws.com",
     "login.microsoftonline.com",
+    "lpa.api.opg.service.justice.gov.uk",
     "oidc.integration.account.gov.uk",
     "publicapi.payments.service.gov.uk",
     "rds.eu-west-2.amazonaws.com",
@@ -19,15 +20,16 @@ locals {
     "www.ncsc.gov.uk"
   ]
   allowed_prefixed_domains = [
+    ".admin.digideps.opg.service.justice.gov.uk",
     ".api.opg.service.justice.gov.uk",
+    ".dev.lpa.api.opg.service.justice.gov.uk",
+    ".digideps.opg.service.justice.gov.uk",
     ".dwpcloud.uk",
     ".homeoffice.gov.uk",
     ".lpa-store.api.opg.service.justice.gov.uk",
     ".lpa-uid.api.opg.service.justice.gov.uk",
     ".sirius.opg.service.justice.gov.uk",
     ".uk.experian.com",
-    ".digideps.opg.service.justice.gov.uk",
-    ".admin.digideps.opg.service.justice.gov.uk"
   ]
 }
 
@@ -45,3 +47,4 @@ resource "aws_networkfirewall_rule_group" "rule_file" {
   }
   region = var.region
 }
+

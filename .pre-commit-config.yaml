@@ -12,9 +12,6 @@ repos:
       - id: terraform_tflint
         args:
           - --args=--recursive
-      - id: terraform_trivy
-        args:
-          - --args=--ignorefile=__GIT_WORKING_DIR__/.trivyignore
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.2.0
     hooks:

@@ -2,18 +2,18 @@
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.27.0
+    rev: 19b54600003cb47ad204107acd29e21bc0999657  # Frozen: v1.27.0
     hooks:
       - id: terraform_fmt
       - id: terraform_validate
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.96.3
+    rev: 55d0143972eec4905fdaea2f444f1e88218f9dce  # Frozen: v1.96.3
     hooks:
       - id: terraform_tflint
         args:
           - --args=--recursive
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.2.0
+    rev: db7346d375eda68a0174f2c057dd97f2fbffe030  # Frozen: v4.2.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer

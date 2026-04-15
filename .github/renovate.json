@@ -2,10 +2,12 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended",
-    "helpers:pinGitHubActionDigests"
+    "helpers:pinGitHubActionDigests",
+    "docker:pinDigests"
   ],
   "branchNameStrict": true,
   "branchPrefix": "renovate-",
+  "minimumReleaseAge": "7 days",
   "configMigration": true,
   "labels": [
     "Dependencies",
@@ -20,7 +22,6 @@
         "minor",
         "patch"
       ],
-      "minimumReleaseAge": "3 days",
       "commitMessageSuffix": " #patch",
       "matchPackageNames": [
         "*"

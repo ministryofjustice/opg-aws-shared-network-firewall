@@ -49,4 +49,3 @@ resource "aws_networkfirewall_rule_group" "rule_file" {
   }
   region = var.region
 }
-

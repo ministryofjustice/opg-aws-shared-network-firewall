@@ -21,7 +21,8 @@ repos:
     rev: master
     hooks:
     - id: git-secrets
-  - repo: https://github.com/zricethezav/gitleaks
-    rev: 2ca41cc1372d1e939a6a879f18cdc19fc1cac1ce  # frozen: v8.30.0
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: 68e8b45440415753fff70a312ece8da92ba85b4a  # frozen: v1.5.0
     hooks:
-    -   id: gitleaks
+      - id: detect-secrets
+        args: ['--baseline', '.secrets.baseline']

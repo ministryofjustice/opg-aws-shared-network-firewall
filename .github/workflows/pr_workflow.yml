@@ -56,7 +56,7 @@ jobs:
           tflint_version: v${{ env.TFLINT_VERSION }}
 
       - name: Configure OIDC AWS credentials for Terraform
-        uses: aws-actions/configure-aws-credentials@a03048d87541d1d9fcf2ecf528a4a65ba9bd7838 # v5.0.0
+        uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # v5.1.1
         with:
           role-to-assume: arn:aws:iam::631181914621:role/oidc-opg-shared-network-firewall-development
           role-session-name: opg-shared-network-firewall-github-actions-oidc-pr-build
@@ -107,7 +107,7 @@ jobs:
       - uses: unfor19/install-aws-cli-action@f5b46b7f32cf5e7ebd652656c5036bf83dd1e60c # 1.0.8
 
       - name: Configure OIDC AWS credentials for Terraform
-        uses: aws-actions/configure-aws-credentials@a03048d87541d1d9fcf2ecf528a4a65ba9bd7838 # v5.0.0
+        uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # v5.1.1
         with:
           role-to-assume: arn:aws:iam::631181914621:role/oidc-opg-shared-network-firewall-development
           role-session-name: opg-shared-network-firewall-github-actions-oidc-pr-build

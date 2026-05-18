@@ -32,6 +32,7 @@ locals {
     ".lpa-uid.api.opg.service.justice.gov.uk",
     ".sirius.opg.service.justice.gov.uk",
     ".uk.experian.com",
+    ".api.os.uk",
     ".complete-deputy-report.service.gov.uk",
   ]
 }

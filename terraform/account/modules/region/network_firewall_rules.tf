@@ -10,16 +10,20 @@ locals {
     "development.api.metrics.opg.service.justice.gov.uk",
     "development.lpa-uid.api.opg.service.justice.gov.uk",
     "hooks.slack.com",
+    "identity.account.gov.uk",
     "identity.integration.account.gov.uk",
     "lambda.eu-west-2.amazonaws.com",
     "login.microsoftonline.com",
     "lpa.api.opg.service.justice.gov.uk",
+    "oidc.account.gov.uk",
     "oidc.integration.account.gov.uk",
     "publicapi.payments.service.gov.uk",
+    "public-keys.auth.elb.eu-west-1.amazonaws.com",
+    "public-keys.auth.elb.eu-west-2.amazonaws.com",
     "rds.eu-west-2.amazonaws.com",
+    "truststore.pki.rds.amazonaws.com",
     "www.gov.uk",
     "www.ncsc.gov.uk",
-    "truststore.pki.rds.amazonaws.com"
   ]
   allowed_prefixed_domains = [
     ".admin.digideps.opg.service.justice.gov.uk",

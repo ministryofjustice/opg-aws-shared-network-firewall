@@ -9,6 +9,11 @@ variable "account" {
   })
 }
 
+variable "excluded_zone_ids" {
+  description = "List of Availability Zone IDs to exclude from deployment"
+  type        = list(string)
+}
+
 variable "region" {
   description = "Region to deploy the resources into"
   type        = string

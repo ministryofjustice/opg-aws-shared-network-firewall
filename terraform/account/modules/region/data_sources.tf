@@ -5,8 +5,10 @@ data "aws_region" "current" {
 }
 
 data "aws_availability_zones" "all" {
-  state  = "available"
-  region = var.region
+  state            = "available"
+  exclude_zone_ids = var.excluded_zone_ids
+  region           = var.region
+
 }
 
 locals {

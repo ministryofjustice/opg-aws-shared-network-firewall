@@ -12,6 +12,5 @@ data "aws_availability_zones" "all" {
 }
 
 locals {
-  availability_zones_set      = toset(data.aws_availability_zones.all.zone_ids)
-  availability_zone_names_set = toset(data.aws_availability_zones.all.names)
+  availability_zones_set = toset(data.aws_availability_zones.all.zone_ids)
 }

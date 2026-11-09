@@ -1,14 +1,14 @@
 resource "aws_cloudwatch_metric_alarm" "dropped_packets_anomaly_detection" {
   for_each = local.availability_zones_set
   # actions_enabled           = true
-  alarm_actions             = []
+  alarm_actions             = [aws_sns_topic.cloudwatch_to_pagerduty.arn]
   alarm_description         = "Anomalies detected for dropped request packets on ${var.account.account_name}-${each.key} network firewall"
   alarm_name                = "${var.account.account_name}-${each.key} Network Firewall dropped requests anomaly"
   comparison_operator       = "GreaterThanUpperThreshold"
   datapoints_to_alarm       = 1
   evaluation_periods        = 1
-  insufficient_data_actions = []
-  ok_actions                = []
+  insufficient_data_actions = [aws_sns_topic.cloudwatch_to_pagerduty.arn]
+  ok_actions                = [aws_sns_topic.cloudwatch_to_pagerduty.arn]
   metric_query {
     account_id  = null
     expression  = "ANOMALY_DETECTION_BAND(m1, 4)"

@@ -9,6 +9,10 @@ resource "aws_cloudwatch_metric_alarm" "dropped_packets_anomaly_detection" {
   evaluation_periods        = 1
   insufficient_data_actions = [aws_sns_topic.cloudwatch_to_pagerduty.arn]
   ok_actions                = [aws_sns_topic.cloudwatch_to_pagerduty.arn]
+  # evaluation_interval       = 0
+  # period                    = 0
+  # threshold                 = 0
+  threshold_metric_id = "ad1"
   metric_query {
     account_id  = null
     expression  = "ANOMALY_DETECTION_BAND(m1, 4)"

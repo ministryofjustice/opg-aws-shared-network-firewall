@@ -116,3 +116,5 @@ jobs:
         run: |
           terraform init
           terraform plan --lock-timeout=300s --parallelism=200
+        env:
+          TF_VAR_pagerduty_token: ${{ secrets.PAGERDUTY_TOKEN }}

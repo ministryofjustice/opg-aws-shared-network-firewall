@@ -132,6 +132,8 @@ jobs:
         run: |
           terraform init
           terraform plan --lock-timeout=300s --parallelism=200 --out=${{ env.TF_WORKSPACE }}.plan > ${{ env.TF_WORKSPACE }}.log
+        env:
+          TF_VAR_pagerduty_token: ${{ secrets.PAGERDUTY_TOKEN }}
 
       - name: Output Plan
         run: |
@@ -142,3 +144,5 @@ jobs:
 
       - name: Apply ${{ matrix.environment }}
         run:  terraform apply -parallelism=200 -lock-timeout=300s ${{ env.TF_WORKSPACE }}.plan
+        env:
+          TF_VAR_pagerduty_token: ${{ secrets.PAGERDUTY_TOKEN }}

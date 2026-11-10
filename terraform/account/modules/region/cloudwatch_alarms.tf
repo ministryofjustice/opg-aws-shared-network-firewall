@@ -29,7 +29,6 @@ resource "aws_cloudwatch_metric_alarm" "dropped_packets_anomaly_detection" {
         AvailabilityZone = tolist(each.value.firewall_status[0].sync_states)[0].availability_zone
         Engine           = "Stateful"
         FirewallName     = each.value.name
-        # FirewallName     = "shared-network-firewall-${var.account.account_name}-${each.key}"
       }
       metric_name = "DroppedPackets"
       namespace   = "AWS/NetworkFirewall"

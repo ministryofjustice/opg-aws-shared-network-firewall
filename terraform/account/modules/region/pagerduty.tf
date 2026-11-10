@@ -22,4 +22,5 @@ resource "aws_sns_topic_subscription" "cloudwatch_sns_subscription" {
   protocol               = "https"
   endpoint_auto_confirms = true
   endpoint               = "https://events.pagerduty.com/integration/${pagerduty_service_integration.cloudwatch_integration.integration_key}/enqueue"
+  region                 = var.region
 }

@@ -1,6 +1,6 @@
 resource "aws_cloudwatch_metric_alarm" "dropped_packets_anomaly_detection" {
-  for_each = local.availability_zones_set
-  # actions_enabled           = true
+  for_each                  = local.availability_zones_set
+  actions_enabled           = true
   alarm_actions             = [aws_sns_topic.cloudwatch_to_pagerduty.arn]
   alarm_description         = "Anomalies detected for dropped request packets on ${var.account.account_name}-${each.key} network firewall"
   alarm_name                = "${var.account.account_name}-${each.key} Network Firewall dropped requests anomaly"
@@ -29,11 +29,10 @@ resource "aws_cloudwatch_metric_alarm" "dropped_packets_anomaly_detection" {
         # AvailabilityZone = "eu-west-1a"
         Engine       = "Stateful"
         FirewallName = "shared-network-firewall-${var.account.account_name}-${each.key}"
-        # FirewallName     = "shared-network-firewall-development-euw1-az1"
       }
       metric_name = "DroppedPackets"
       namespace   = "AWS/NetworkFirewall"
-      period      = 300
+      period      = 3600
       stat        = "Average"
       unit        = null
     }
